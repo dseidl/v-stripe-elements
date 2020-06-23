@@ -181,6 +181,7 @@ var _default2 = base.extend().extend({
         zip: zip
       }); // initialize Stripe
 
+      console.log('generate stripe card, yarn link worked!');
       this.stripe = Stripe(this.apiKey); // eslint-disable-line no-undef
       // create an Elements generator
 

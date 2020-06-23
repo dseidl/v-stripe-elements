@@ -89,6 +89,13 @@ export default base.extend<options>().extend({
       type: String,
       default: '',
     },
+    locale: {
+      type: String,
+      default: 'auto',
+      validator: function (value) {
+        return ['auto', 'ar', 'da', 'de', 'en', 'es', 'fi', 'fr', 'he', 'it', 'ja', 'lt', 'lv', 'ms', 'nb', 'nl', 'pl', 'pt', 'ru', 'sv', 'zh'].indexOf(value) !== -1
+      }
+    }
   },
   data: () => ({
     card: null as stripe.elements.Element | null,
@@ -165,7 +172,8 @@ export default base.extend<options>().extend({
       const style = this.genStyle(customStyle, fontName, isDark, theme)
       const cardProps = this.genCardProps({ disabled, hideIcon, hidePostalCode, iconStyle, style, zip })
       // initialize Stripe
-      this.stripe = Stripe(this.apiKey) // eslint-disable-line no-undef
+      console.log('generate stripe card, yarn link worked!')
+      this.stripe = Stripe(this.apiKey, { locale: this.locale }) // eslint-disable-line no-undef
       // create an Elements generator
       const font = fontUrl || fontName
       this.elements = this.stripe.elements(this.genFont(font))
